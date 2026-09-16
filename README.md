@@ -1,6 +1,6 @@
 # Agentic Engineering Foundation
 
-A 10-day technical foundation course for university students who want to build agentic systems as software systems. The course emphasizes architecture, state, control flow, tools, reliability, safety, and evaluation—not AI-product literacy or framework tutorials.
+A 10-day technical foundation course for university students who want to build agentic systems as software systems. The course emphasizes architecture, state, control flow, tools, reliability, safety, and evaluation rather than AI-product literacy or framework tutorials.
 
 > **Current status:** Day 1 is complete. Days 2–10 contain roadmap placeholders only.
 
@@ -15,7 +15,7 @@ Students who can read and write basic Python and are comfortable using a termina
 - A GitHub account for Codespaces and submissions
 - Git fundamentals: clone, branch, commit, and push
 
-No API key is required for Day 1.
+The core Day 1 runtime requires no API key. An optional second-stage exercise replaces the deterministic decision policy with an LLM and requires an API key.
 
 ## Engineering principle
 
@@ -27,7 +27,7 @@ Models can interpret an open-ended goal or choose among valid actions. Ordinary 
 
 | Day | Topic | Engineering focus |
 | --- | --- | --- |
-| 1 | Agent Architecture and the Execution Loop | State, actions, observations, and stopping |
+| 1 | Agent Architecture and the Execution Loop | Runtime, state, actions, observations, stopping, and model boundary |
 | 2 | Structured Outputs and Schema Design | Machine-readable contracts |
 | 3 | Tools and Function Calling | Safe capability boundaries |
 | 4 | State Machines and Agent Loops | Explicit transitions and control flow |
@@ -43,11 +43,18 @@ See [course-map.md](course-map.md) for learning outcomes and the progression.
 ## Repository structure
 
 - `setup/` — Codespaces, local setup, and API-key safety
-- `dayXX-*/` — concepts, exercises, starter code, solutions, and projects
+- `dayXX-*/` — concepts, exercises, starter code, solutions, tests, and projects
 - `resources/` — shared references added as the course develops
 - `.devcontainer/` — Python 3.11 Codespaces configuration
 
-Day 1 keeps model selection behind a simple policy function. This exposes the agent loop without requiring an LLM or hiding control flow inside an agent framework.
+Day 1 uses the same runtime in two stages:
+
+```text
+Stage A: state → deterministic policy → validated action → tool → observation
+Stage B: state → LLM policy           → validated action → tool → observation
+```
+
+Only the decision component changes. Validation, tool execution, state transitions, and stopping conditions remain under application control.
 
 ## Start in GitHub Codespaces
 
@@ -58,7 +65,10 @@ Day 1 keeps model selection behind a simple policy function. This exposes the ag
 
    ```bash
    python day01-agent-architecture/solution/agent_loop.py
+   python -m unittest discover day01-agent-architecture/tests -v
    ```
+
+For the optional LLM policy, follow [Day 1](day01-agent-architecture/README.md) and [API key safety](setup/api-keys.md).
 
 For more detail, see [setup/codespaces.md](setup/codespaces.md). For a local environment, see [setup/local-setup.md](setup/local-setup.md).
 
@@ -68,8 +78,9 @@ For more detail, see [setup/codespaces.md](setup/codespaces.md). For a local env
 2. Create a branch such as `day01-your-name`.
 3. Complete work in the relevant `starter/` and `exercises/` files. Do not modify the provided `solution/` until after review.
 4. Run the program and record important test cases.
-5. Commit with a descriptive message and push your branch.
-6. Open a pull request containing:
+5. Run the relevant automated tests.
+6. Commit with a descriptive message and push your branch.
+7. Open a pull request containing:
    - a short design summary;
    - commands used to verify the work;
    - known limitations or failure cases;
@@ -77,7 +88,7 @@ For more detail, see [setup/codespaces.md](setup/codespaces.md). For a local env
 
 ## Framework policy
 
-The foundation deliberately does not use LangGraph, CrewAI, AutoGen, or similar agent frameworks. Students first learn the loop those tools orchestrate so they can later evaluate frameworks from engineering principles.
+The foundation deliberately does not use LangGraph, CrewAI, AutoGen, or similar agent frameworks. Students first learn the runtime those tools orchestrate so they can later evaluate frameworks from engineering principles.
 
 ## License
 
