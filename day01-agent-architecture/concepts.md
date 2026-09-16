@@ -6,9 +6,9 @@ An **LLM application** calls a model to transform input into output. A summarize
 
 A **deterministic workflow** follows a path written in code. Given the same state, it selects the same next step. An invoice system might validate fields, look up a purchase order, route by amount, and request approval.
 
-An **agent** receives a goal, observes its current state, chooses a next action from available capabilities, executes it, incorporates the observation, and repeats until a stopping condition is met. Some decision points may be model-driven and therefore nondeterministic.
+An **agent** is a goal-directed system that repeatedly observes state, chooses among available actions, acts on an environment, and adapts later actions based on what it observes. In modern AI agents, one or more of those decisions are typically delegated to a learned model.
 
-A **hybrid** places bounded agentic choices inside deterministic control flow. Most production systems are hybrids: a model resolves ambiguity while code validates schemas, controls access, executes tools, and enforces limits.
+A **hybrid** places bounded model-driven choices inside deterministic control flow. Most production systems are hybrids: a model resolves ambiguity while code validates actions, controls access, executes tools, preserves state, and enforces limits.
 
 ```text
 Single LLM call:  input ──► model ──► output
@@ -23,14 +23,14 @@ Agent:            goal ──► [observe → choose → act]
                                       stopping
 ```
 
-The presence of an LLM does not make a system an agent. The important property is who or what chooses the next action at runtime.
+A system can choose actions dynamically without being an AI agent. The engineering question is whether a goal-directed controller adapts its actions from observations, and whether a learned model participates in ambiguous decisions.
 
 ## 2. Anatomy of an agent
 
 | Part | Engineering question | Supplier example |
 | --- | --- | --- |
 | Goal | What outcome defines success? | Recommend an aluminum-bracket supplier below ₹500/unit |
-| Model | What component handles ambiguous judgment? | A policy function now; an LLM could later interpret requests |
+| Model / policy | What component handles ambiguous judgment? | Deterministic policy first; LLM policy second |
 | Context | What information is available for this decision? | Goal, tool results, constraints, and action history |
 | State | What changes and must survive between steps? | Candidates, inspected records, step count, recommendation |
 | Tools | What actions may the controller request? | Search and inspect |
@@ -68,48 +68,59 @@ This separation makes the system testable. You can replace a model decision with
 
 ## 4. The execution loop
 
-The minimal loop is **observe → decide → act → update → check**:
+The minimal loop is **observe → decide → validate → act → update → check**:
 
 ```python
 while not state["done"] and state["step"] < MAX_STEPS:
-    action = choose_action(state)       # possibly model-driven
+    action = choose_action(state)       # deterministic or model-driven
+    validate_action(action)             # deterministic safety boundary
     observation = execute(action)       # deterministic tool boundary
-    state = update_state(state, action, observation)
+    update_state(state, action, observation)
     state["step"] += 1
 ```
 
-Real implementations should validate the action before execution and log every transition.
+The decision component can change without changing the rest of the runtime.
 
 ## 5. Actions and observations
 
 An **action** is a structured request from the decision component to the environment. An **observation** is the environment's result.
 
 ```python
+from typing import Literal, TypedDict
+
+class Action(TypedDict, total=False):
+    name: Literal["SEARCH", "INSPECT", "FINISH"]
+    supplier_id: str
+```
+
+Example values:
+
+```python
 action = {"name": "INSPECT", "supplier_id": "SUP-002"}
 observation = {"found": True, "unit_price": 445, "lead_days": 9}
 ```
 
-Treat both as data with known shapes. Do not let free-form model text directly trigger arbitrary code or shell commands.
+Treat actions and observations as data with known shapes. Do not let free-form model text directly trigger arbitrary code or shell commands.
 
 ## 6. Agent state
 
-State is the durable record needed for the next decision. It may contain facts, progress, history, budgets, and terminal status. Context is what you select from that state (plus other sources) for a particular decision.
+State is the durable record needed for the next decision. It may contain facts, progress, history, budgets, and terminal status. Context is what you select from that state, plus other sources, for a particular decision.
 
 Useful state invariants include:
 
 - `0 <= step <= MAX_STEPS`
 - every inspected supplier came from search results;
-- `done` is true when a final recommendation exists;
+- `done` is true when a terminal condition has been reached;
 - an action history entry is appended exactly once per executed step.
 
 State should be inspectable. Hidden state makes failures difficult to reproduce.
 
 ## 7. Deterministic vs agentic decisions
 
-Use an agentic component when the input is ambiguous: interpreting “suitable,” choosing which candidate deserves more research, or synthesizing tradeoffs. Use deterministic code when the rule is certain: validating an action name, comparing a numeric price, checking permission, or enforcing `MAX_STEPS`.
+Use a model when the input is ambiguous: interpreting “suitable,” choosing which candidate deserves more research, or synthesizing tradeoffs. Use deterministic code when the rule is certain: validating an action name, comparing a numeric price, checking permission, or enforcing `MAX_STEPS`.
 
 ```python
-# Ambiguous: a policy or model may rank these tradeoffs.
+# Ambiguous: a model may weigh these tradeoffs.
 best_candidate = choose_candidate(price, lead_time, quality_notes)
 
 # Certain: code enforces the hard budget.
@@ -135,7 +146,7 @@ INSPECT ── more candidates ───────► INSPECT
 FINISH(recommendation)
 ```
 
-The available actions define an agent's capability boundary. Narrow, typed actions are easier to test and secure.
+The available actions define the capability boundary. Narrow, typed actions are easier to test and secure.
 
 ## 9. Stopping conditions
 
@@ -161,6 +172,28 @@ manual ── assistive ── approval-gated ── bounded autonomous ── o
 
 Choose the least autonomy that achieves the goal. A research agent may search and rank automatically but require human approval before emailing a supplier, spending money, or changing a system of record.
 
+## 11. Stage A vs Stage B
+
+Day 1 uses the same runtime twice.
+
+### Stage A: deterministic policy
+
+```text
+state → Python policy → action → validator → tool → observation
+```
+
+This is intentionally closer to a stateful controller than a learned AI agent. Its purpose is to expose the mechanics clearly.
+
+### Stage B: LLM policy
+
+```text
+state → LLM policy → JSON action → validator → tool → observation
+```
+
+Only the decision component changes. The LLM does not execute tools directly, mutate state directly, or bypass stopping rules.
+
+This comparison is the technical lesson: **agent engineering is the design of the entire execution system, not merely the model prompt.**
+
 ## Design checklist
 
 Before implementing an agent, answer:
@@ -172,3 +205,4 @@ Before implementing an agent, answer:
 5. What are the success, failure, and safety stopping conditions?
 6. Which side effects require human approval?
 7. What logs make a bad transition reproducible?
+8. What happens if the model returns malformed or invalid output?
