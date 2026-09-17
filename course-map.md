@@ -6,7 +6,7 @@ The course moves from one transparent execution loop to a tested, constrained ag
 | --- | --- | --- | --- |
 | 1 | Agent Architecture and the Execution Loop | Distinguish agents from workflows and implement a bounded loop with explicit state | Complete |
 | 2 | Structured Outputs and Schema Design | Define, validate, and recover machine-readable model outputs | Complete |
-| 3 | Tools and Function Calling | Design tool contracts and safely execute model-selected actions | Planned |
+| 3 | Tools and Function Calling | Design tool contracts and safely execute model-selected actions | Complete |
 | 4 | State Machines and Agent Loops | Model transitions, retries, branches, and terminal states | Planned |
 | 5 | Context Engineering | Assemble relevant context under quality and token constraints | Planned |
 | 6 | Memory Systems | Separate working, episodic, and durable memory | Planned |
@@ -25,3 +25,5 @@ architecture → contracts → tools → state → context → memory
 Day 1 establishes the execution runtime: a controller chooses an action, the environment returns an observation, and deterministic code updates state and enforces stopping rules.
 
 Day 2 adds explicit machine-readable contracts between model interpretation and application logic using schemas, validation, and recovery policies.
+
+Day 3 adds controlled capabilities through tool contracts, argument validation, a registry, a dispatcher, and explicit observations.
