@@ -2,7 +2,7 @@
 
 A 10-day technical foundation course for university students who want to build agentic systems as software systems. The course emphasizes architecture, state, control flow, tools, reliability, safety, and evaluation rather than AI-product literacy or framework tutorials.
 
-> **Current status:** Day 1 is complete. Days 2–10 contain roadmap placeholders only.
+> **Current status:** Days 1–2 are complete. Days 3–10 contain roadmap placeholders only.
 
 ## Who this course is for
 
@@ -28,7 +28,7 @@ Models can interpret an open-ended goal or choose among valid actions. Ordinary 
 | Day | Topic | Engineering focus |
 | --- | --- | --- |
 | 1 | Agent Architecture and the Execution Loop | Runtime, state, actions, observations, stopping, and model boundary |
-| 2 | Structured Outputs and Schema Design | Machine-readable contracts |
+| 2 | Structured Outputs and Schema Design | Machine-readable contracts and validation |
 | 3 | Tools and Function Calling | Safe capability boundaries |
 | 4 | State Machines and Agent Loops | Explicit transitions and control flow |
 | 5 | Context Engineering | Selecting useful working context |
@@ -54,21 +54,34 @@ Stage A: state → deterministic policy → validated action → tool → observ
 Stage B: state → LLM policy           → validated action → tool → observation
 ```
 
-Only the decision component changes. Validation, tool execution, state transitions, and stopping conditions remain under application control.
+Day 2 adds the contract between model interpretation and application logic:
+
+```text
+natural language → structured output → schema validation → application logic
+```
 
 ## Start in GitHub Codespaces
 
 1. Open this repository on GitHub.
 2. Select **Code → Codespaces → Create codespace on main**.
 3. Wait for the terminal to finish setting up.
-4. Run:
+4. Run Day 1:
 
    ```bash
    python day01-agent-architecture/solution/agent_loop.py
    python -m unittest discover day01-agent-architecture/tests -v
    ```
 
-For the optional LLM policy, follow [Day 1](day01-agent-architecture/README.md) and [API key safety](setup/api-keys.md).
+5. Run Day 2:
+
+   ```bash
+   python -m pip install -r day02-structured-outputs/requirements.txt
+   python day02-structured-outputs/solution/requirement_extractor.py \
+     "Need 100 aluminum brackets below ₹500 within 14 days"
+   python -m unittest discover day02-structured-outputs/tests -v
+   ```
+
+For the optional Day 1 LLM policy, follow [Day 1](day01-agent-architecture/README.md) and [API key safety](setup/api-keys.md).
 
 For more detail, see [setup/codespaces.md](setup/codespaces.md). For a local environment, see [setup/local-setup.md](setup/local-setup.md).
 
