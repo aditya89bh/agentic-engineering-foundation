@@ -2,7 +2,7 @@
 
 A 10-day technical foundation course for university students who want to build agentic systems as software systems. The course emphasizes architecture, state, control flow, tools, reliability, safety, and evaluation rather than AI-product literacy or framework tutorials.
 
-> **Current status:** Days 1–2 are complete. Days 3–10 contain roadmap placeholders only.
+> **Current status:** Days 1–3 are complete. Days 4–10 contain roadmap placeholders only.
 
 ## Who this course is for
 
@@ -29,7 +29,7 @@ Models can interpret an open-ended goal or choose among valid actions. Ordinary 
 | --- | --- | --- |
 | 1 | Agent Architecture and the Execution Loop | Runtime, state, actions, observations, stopping, and model boundary |
 | 2 | Structured Outputs and Schema Design | Machine-readable contracts and validation |
-| 3 | Tools and Function Calling | Safe capability boundaries |
+| 3 | Tools and Function Calling | Safe capability boundaries, dispatch, and tool observations |
 | 4 | State Machines and Agent Loops | Explicit transitions and control flow |
 | 5 | Context Engineering | Selecting useful working context |
 | 6 | Memory Systems | Durable and retrievable state |
@@ -47,17 +47,22 @@ See [course-map.md](course-map.md) for learning outcomes and the progression.
 - `resources/` — shared references added as the course develops
 - `.devcontainer/` — Python 3.11 Codespaces configuration
 
-Day 1 uses the same runtime in two stages:
+Day 1 establishes a bounded runtime:
 
 ```text
-Stage A: state → deterministic policy → validated action → tool → observation
-Stage B: state → LLM policy           → validated action → tool → observation
+state → decision policy → validated action → tool → observation
 ```
 
-Day 2 adds the contract between model interpretation and application logic:
+Day 2 adds the model/application contract:
 
 ```text
 natural language → structured output → schema validation → application logic
+```
+
+Day 3 adds controlled capabilities:
+
+```text
+agent decision → structured tool call → validation → dispatcher → tool → observation
 ```
 
 ## Start in GitHub Codespaces
@@ -65,21 +70,14 @@ natural language → structured output → schema validation → application log
 1. Open this repository on GitHub.
 2. Select **Code → Codespaces → Create codespace on main**.
 3. Wait for the terminal to finish setting up.
-4. Run Day 1:
+4. Run the relevant day from its README.
 
-   ```bash
-   python day01-agent-architecture/solution/agent_loop.py
-   python -m unittest discover day01-agent-architecture/tests -v
-   ```
+Day 3 reference implementation:
 
-5. Run Day 2:
-
-   ```bash
-   python -m pip install -r day02-structured-outputs/requirements.txt
-   python day02-structured-outputs/solution/requirement_extractor.py \
-     "Need 100 aluminum brackets below ₹500 within 14 days"
-   python -m unittest discover day02-structured-outputs/tests -v
-   ```
+```bash
+python day03-tool-use/solution/supplier_agent.py
+python -m unittest discover day03-tool-use/tests -v
+```
 
 For the optional Day 1 LLM policy, follow [Day 1](day01-agent-architecture/README.md) and [API key safety](setup/api-keys.md).
 
@@ -88,16 +86,12 @@ For more detail, see [setup/codespaces.md](setup/codespaces.md). For a local env
 ## How to work and submit
 
 1. Fork the course repository or use the repository assigned by your instructor.
-2. Create a branch such as `day01-your-name`.
+2. Create a branch such as `day03-your-name`.
 3. Complete work in the relevant `starter/` and `exercises/` files. Do not modify the provided `solution/` until after review.
 4. Run the program and record important test cases.
 5. Run the relevant automated tests.
 6. Commit with a descriptive message and push your branch.
-7. Open a pull request containing:
-   - a short design summary;
-   - commands used to verify the work;
-   - known limitations or failure cases;
-   - screenshots only when they add evidence.
+7. Open a pull request containing a short design summary, verification commands, and known limitations or failure cases.
 
 ## Framework policy
 
