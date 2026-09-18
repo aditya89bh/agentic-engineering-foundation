@@ -2,7 +2,7 @@
 
 A 10-day technical foundation course for university students who want to build agentic systems as software systems. The course emphasizes architecture, state, control flow, tools, context, memory, reliability, safety, evaluation, and testing rather than AI-product literacy or framework tutorials.
 
-> **Current status:** Days 1–9 are complete. Day 10 contains the capstone placeholder only.
+> **Current status:** Days 1–10 are complete.
 
 ## Who this course is for
 
@@ -21,7 +21,7 @@ The core Day 1 runtime requires no API key. An optional second-stage exercise re
 
 > **Use models for ambiguity. Use deterministic software for certainty.**
 
-Models can interpret an open-ended goal or choose among valid actions. Ordinary software should validate those actions, enforce limits, execute tools, preserve state, assemble context, manage memory, recover from failures, enforce policy, require approval where needed, and evaluate behavior with repeatable tests.
+Models can interpret open-ended goals or choose among valid actions. Ordinary software should validate those actions, enforce limits, execute tools, preserve state, assemble context, manage memory, recover from failures, enforce policy, require approval where needed, and evaluate behavior with repeatable tests.
 
 ## 10-day overview
 
@@ -36,7 +36,7 @@ Models can interpret an open-ended goal or choose among valid actions. Ordinary 
 | 7 | Reliability and Failure Engineering | Failure taxonomy, bounded retries, backoff, fallbacks, circuit breakers, and failure logs |
 | 8 | Guardrails and Human-in-the-Loop | Permission boundaries, policy checks, approval gates, and audit trails |
 | 9 | Agent Evaluation and Testing | Component, trajectory, outcome, regression, and metric-driven evaluation |
-| 10 | Capstone Engineering Project | End-to-end system design |
+| 10 | Capstone Engineering Project | End-to-end integration, debugging, evaluation, and presentation |
 
 See [course-map.md](course-map.md) for learning outcomes and the progression.
 
@@ -47,58 +47,36 @@ See [course-map.md](course-map.md) for learning outcomes and the progression.
 - `resources/` — shared references added as the course develops
 - `.devcontainer/` — Python 3.11 Codespaces configuration
 
-Day 1 establishes a bounded runtime:
+## Course progression
 
 ```text
-state → decision policy → validated action → tool → observation
+Day 1  architecture
+Day 2  contracts
+Day 3  tools
+Day 4  state
+Day 5  context
+Day 6  memory
+Day 7  reliability
+Day 8  guardrails
+Day 9  evaluation
+Day 10 capstone integration
 ```
 
-Day 2 adds the model/application contract:
+The final capstone integrates:
 
 ```text
-natural language → structured output → schema validation → application logic
-```
-
-Day 3 adds controlled capabilities:
-
-```text
-agent decision → structured tool call → validation → dispatcher → tool → observation
-```
-
-Day 4 makes execution explicit:
-
-```text
-state → legal transition → branch / loop / retry → terminal state
-```
-
-Day 5 controls what information reaches each decision:
-
-```text
-state + history + tools → context manager → decision-specific context
-```
-
-Day 6 adds durable information across runs:
-
-```text
-past runs → memory store → retrieval policy → context manager → current decision
-```
-
-Day 7 makes failure handling explicit:
-
-```text
-failure → classify → retry / fallback / stop → structured outcome
-```
-
-Day 8 governs consequential actions:
-
-```text
-proposed action → policy → approval if needed → execution → audit
-```
-
-Day 9 measures whether the system actually behaves well:
-
-```text
-cases → traces → graders → metrics → failures → regression comparison
+request
+→ structured requirement
+→ state machine
+→ context manager
+→ decision
+→ tool
+→ observation
+→ memory
+→ reliability
+→ policy / approval
+→ audit
+→ evaluation
 ```
 
 ## Start in GitHub Codespaces
@@ -108,11 +86,11 @@ cases → traces → graders → metrics → failures → regression comparison
 3. Wait for the terminal to finish setting up.
 4. Run the relevant day from its README.
 
-Day 9 reference implementation:
+Day 10 capstone:
 
 ```bash
-python day09-evaluation/solution/report.py
-python -m unittest discover day09-evaluation/tests -v
+python day10-capstone/agent/supplier_agent.py
+python -m unittest discover day10-capstone/tests -v
 ```
 
 For the optional Day 1 LLM policy, follow [Day 1](day01-agent-architecture/README.md) and [API key safety](setup/api-keys.md).
@@ -122,12 +100,12 @@ For more detail, see [setup/codespaces.md](setup/codespaces.md). For a local env
 ## How to work and submit
 
 1. Fork the course repository or use the repository assigned by your instructor.
-2. Create a branch such as `day09-your-name`.
-3. Complete work in the relevant `starter/` and `exercises/` files. Do not modify the provided `solution/` until after review.
+2. Create a branch such as `day10-your-name`.
+3. Complete work in the relevant starter, exercises, or capstone files.
 4. Run the program and record important test cases.
 5. Run the relevant automated tests.
 6. Commit with a descriptive message and push your branch.
-7. Open a pull request containing a short design summary, verification commands, and known limitations or failure cases.
+7. Open a pull request containing a design summary, verification commands, evaluation evidence, and known limitations.
 
 ## Framework policy
 
