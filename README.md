@@ -1,8 +1,8 @@
 # Agentic Engineering Foundation
 
-A 10-day technical foundation course for university students who want to build agentic systems as software systems. The course emphasizes architecture, state, control flow, tools, context, memory, reliability, safety, and evaluation rather than AI-product literacy or framework tutorials.
+A 10-day technical foundation course for university students who want to build agentic systems as software systems. The course emphasizes architecture, state, control flow, tools, context, memory, reliability, safety, evaluation, and testing rather than AI-product literacy or framework tutorials.
 
-> **Current status:** Days 1–8 are complete. Days 9–10 contain roadmap placeholders only.
+> **Current status:** Days 1–9 are complete. Day 10 contains the capstone placeholder only.
 
 ## Who this course is for
 
@@ -21,7 +21,7 @@ The core Day 1 runtime requires no API key. An optional second-stage exercise re
 
 > **Use models for ambiguity. Use deterministic software for certainty.**
 
-Models can interpret an open-ended goal or choose among valid actions. Ordinary software should validate those actions, enforce limits, execute tools, preserve state, assemble context, manage memory, recover from failures, enforce policy, and decide whether consequential actions require human approval.
+Models can interpret an open-ended goal or choose among valid actions. Ordinary software should validate those actions, enforce limits, execute tools, preserve state, assemble context, manage memory, recover from failures, enforce policy, require approval where needed, and evaluate behavior with repeatable tests.
 
 ## 10-day overview
 
@@ -35,7 +35,7 @@ Models can interpret an open-ended goal or choose among valid actions. Ordinary 
 | 6 | Memory Systems | Persistent memory, write/read policy, confidence, freshness, and retrieval |
 | 7 | Reliability and Failure Engineering | Failure taxonomy, bounded retries, backoff, fallbacks, circuit breakers, and failure logs |
 | 8 | Guardrails and Human-in-the-Loop | Permission boundaries, policy checks, approval gates, and audit trails |
-| 9 | Agent Evaluation and Testing | Behavioral tests and metrics |
+| 9 | Agent Evaluation and Testing | Component, trajectory, outcome, regression, and metric-driven evaluation |
 | 10 | Capstone Engineering Project | End-to-end system design |
 
 See [course-map.md](course-map.md) for learning outcomes and the progression.
@@ -95,6 +95,12 @@ Day 8 governs consequential actions:
 proposed action → policy → approval if needed → execution → audit
 ```
 
+Day 9 measures whether the system actually behaves well:
+
+```text
+cases → traces → graders → metrics → failures → regression comparison
+```
+
 ## Start in GitHub Codespaces
 
 1. Open this repository on GitHub.
@@ -102,11 +108,11 @@ proposed action → policy → approval if needed → execution → audit
 3. Wait for the terminal to finish setting up.
 4. Run the relevant day from its README.
 
-Day 8 reference implementation:
+Day 9 reference implementation:
 
 ```bash
-python day08-guardrails/solution/supplier_agent.py
-python -m unittest discover day08-guardrails/tests -v
+python day09-evaluation/solution/report.py
+python -m unittest discover day09-evaluation/tests -v
 ```
 
 For the optional Day 1 LLM policy, follow [Day 1](day01-agent-architecture/README.md) and [API key safety](setup/api-keys.md).
@@ -116,7 +122,7 @@ For more detail, see [setup/codespaces.md](setup/codespaces.md). For a local env
 ## How to work and submit
 
 1. Fork the course repository or use the repository assigned by your instructor.
-2. Create a branch such as `day08-your-name`.
+2. Create a branch such as `day09-your-name`.
 3. Complete work in the relevant `starter/` and `exercises/` files. Do not modify the provided `solution/` until after review.
 4. Run the program and record important test cases.
 5. Run the relevant automated tests.
