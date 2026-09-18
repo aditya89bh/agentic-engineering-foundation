@@ -1,8 +1,8 @@
 # Agentic Engineering Foundation
 
-A 10-day technical foundation course for university students who want to build agentic systems as software systems. The course emphasizes architecture, state, control flow, tools, context, reliability, safety, and evaluation rather than AI-product literacy or framework tutorials.
+A 10-day technical foundation course for university students who want to build agentic systems as software systems. The course emphasizes architecture, state, control flow, tools, context, memory, reliability, safety, and evaluation rather than AI-product literacy or framework tutorials.
 
-> **Current status:** Days 1–5 are complete. Days 6–10 contain roadmap placeholders only.
+> **Current status:** Days 1–6 are complete. Days 7–10 contain roadmap placeholders only.
 
 ## Who this course is for
 
@@ -21,7 +21,7 @@ The core Day 1 runtime requires no API key. An optional second-stage exercise re
 
 > **Use models for ambiguity. Use deterministic software for certainty.**
 
-Models can interpret an open-ended goal or choose among valid actions. Ordinary software should validate those actions, enforce limits, execute tools, preserve state, assemble context, and decide whether hard constraints have been satisfied.
+Models can interpret an open-ended goal or choose among valid actions. Ordinary software should validate those actions, enforce limits, execute tools, preserve state, assemble context, manage memory, and decide whether hard constraints have been satisfied.
 
 ## 10-day overview
 
@@ -32,7 +32,7 @@ Models can interpret an open-ended goal or choose among valid actions. Ordinary 
 | 3 | Tools and Function Calling | Safe capability boundaries, dispatch, and tool observations |
 | 4 | State Machines and Agent Loops | Explicit transitions, branches, retries, terminal states, and checkpoints |
 | 5 | Context Engineering | Selection, routing, compression, provenance, and context budgets |
-| 6 | Memory Systems | Durable and retrievable state |
+| 6 | Memory Systems | Persistent memory, write/read policy, confidence, freshness, and retrieval |
 | 7 | Reliability and Failure Engineering | Recovery, retries, and observability |
 | 8 | Guardrails and Human-in-the-Loop | Constraints and approval gates |
 | 9 | Agent Evaluation and Testing | Behavioral tests and metrics |
@@ -77,6 +77,12 @@ Day 5 controls what information reaches each decision:
 state + history + tools → context manager → decision-specific context
 ```
 
+Day 6 adds durable information across runs:
+
+```text
+past runs → memory store → retrieval policy → context manager → current decision
+```
+
 ## Start in GitHub Codespaces
 
 1. Open this repository on GitHub.
@@ -84,11 +90,11 @@ state + history + tools → context manager → decision-specific context
 3. Wait for the terminal to finish setting up.
 4. Run the relevant day from its README.
 
-Day 5 reference implementation:
+Day 6 reference implementation:
 
 ```bash
-python day05-context-engineering/solution/supplier_agent.py
-python -m unittest discover day05-context-engineering/tests -v
+python day06-memory/solution/supplier_agent.py
+python -m unittest discover day06-memory/tests -v
 ```
 
 For the optional Day 1 LLM policy, follow [Day 1](day01-agent-architecture/README.md) and [API key safety](setup/api-keys.md).
@@ -98,7 +104,7 @@ For more detail, see [setup/codespaces.md](setup/codespaces.md). For a local env
 ## How to work and submit
 
 1. Fork the course repository or use the repository assigned by your instructor.
-2. Create a branch such as `day05-your-name`.
+2. Create a branch such as `day06-your-name`.
 3. Complete work in the relevant `starter/` and `exercises/` files. Do not modify the provided `solution/` until after review.
 4. Run the program and record important test cases.
 5. Run the relevant automated tests.
