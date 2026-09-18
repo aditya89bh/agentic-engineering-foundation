@@ -9,7 +9,7 @@ The course moves from one transparent execution loop to a tested, constrained ag
 | 3 | Tools and Function Calling | Design tool contracts and safely execute model-selected actions | Complete |
 | 4 | State Machines and Agent Loops | Model transitions, retries, branches, checkpoints, and terminal states | Complete |
 | 5 | Context Engineering | Select, route, compress, and budget decision-specific model context | Complete |
-| 6 | Memory Systems | Separate working, episodic, and durable memory | Planned |
+| 6 | Memory Systems | Design persistent memory, write/read policies, and relevant retrieval | Complete |
 | 7 | Reliability and Failure Engineering | Observe failures and add timeouts, retries, fallbacks, and idempotency | Planned |
 | 8 | Guardrails and Human-in-the-Loop | Enforce policy and place approval gates around consequential actions | Planned |
 | 9 | Agent Evaluation and Testing | Build task sets, graders, traces, and regression checks | Planned |
@@ -31,3 +31,5 @@ Day 3 adds controlled capabilities through tool contracts, argument validation, 
 Day 4 makes multi-step behavior explicit through finite states, legal transitions, branching, retry budgets, invariants, checkpoints, and terminal conditions.
 
 Day 5 separates state from context and adds relevance filtering, context routing, deterministic compression, bounded budgets, provenance, and conflict handling.
+
+Day 6 adds durable memory with explicit schemas, SQLite persistence, write/read policies, confidence, freshness, provenance, duplicate prevention, and selective retrieval.
