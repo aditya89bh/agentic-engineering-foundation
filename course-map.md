@@ -11,7 +11,7 @@ The course moves from one transparent execution loop to a tested, constrained ag
 | 5 | Context Engineering | Select, route, compress, and budget decision-specific model context | Complete |
 | 6 | Memory Systems | Design persistent memory, write/read policies, and relevant retrieval | Complete |
 | 7 | Reliability and Failure Engineering | Classify failures and implement bounded retries, fallbacks, circuit breakers, and structured failure handling | Complete |
-| 8 | Guardrails and Human-in-the-Loop | Enforce policy and place approval gates around consequential actions | Planned |
+| 8 | Guardrails and Human-in-the-Loop | Enforce permissions, policy decisions, approval gates, and auditable human control | Complete |
 | 9 | Agent Evaluation and Testing | Build task sets, graders, traces, and regression checks | Planned |
 | 10 | Capstone Engineering Project | Design, build, evaluate, and present a complete agentic system | Planned |
 
@@ -35,3 +35,5 @@ Day 5 separates state from context and adds relevance filtering, context routing
 Day 6 adds durable memory with explicit schemas, SQLite persistence, write/read policies, confidence, freshness, provenance, duplicate prevention, and selective retrieval.
 
 Day 7 adds failure taxonomy, retry classification, bounded retries, backoff, fallbacks, circuit-breaker behavior, structured error logs, and partial-success handling.
+
+Day 8 adds deterministic permissions, role-based and argument-level policies, scoped human approvals, approval state transitions, and audit logging.
