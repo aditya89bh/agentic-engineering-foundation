@@ -13,7 +13,7 @@ The course moves from one transparent execution loop to a tested, constrained ag
 | 7 | Reliability and Failure Engineering | Classify failures and implement bounded retries, fallbacks, circuit breakers, and structured failure handling | Complete |
 | 8 | Guardrails and Human-in-the-Loop | Enforce permissions, policy decisions, approval gates, and auditable human control | Complete |
 | 9 | Agent Evaluation and Testing | Build task sets, graders, traces, aggregate metrics, and regression checks | Complete |
-| 10 | Capstone Engineering Project | Design, build, evaluate, and present a complete agentic system | Planned |
+| 10 | Capstone Engineering Project | Integrate, debug, evaluate, and present a complete agentic system | Complete |
 
 ## Progression
 
@@ -22,20 +22,22 @@ architecture → contracts → tools → state → context → memory
             → reliability → guardrails → evaluation → capstone
 ```
 
-Day 1 establishes the execution runtime: a controller chooses an action, the environment returns an observation, and deterministic code updates state and enforces stopping rules.
+Day 1 establishes the execution runtime.
 
-Day 2 adds explicit machine-readable contracts between model interpretation and application logic using schemas, validation, and recovery policies.
+Day 2 adds explicit machine-readable contracts.
 
-Day 3 adds controlled capabilities through tool contracts, argument validation, a registry, a dispatcher, and explicit observations.
+Day 3 adds controlled capabilities through tool contracts and dispatch.
 
-Day 4 makes multi-step behavior explicit through finite states, legal transitions, branching, retry budgets, invariants, checkpoints, and terminal conditions.
+Day 4 makes multi-step behavior explicit through state machines.
 
-Day 5 separates state from context and adds relevance filtering, context routing, deterministic compression, bounded budgets, provenance, and conflict handling.
+Day 5 separates state from decision-specific context.
 
-Day 6 adds durable memory with explicit schemas, SQLite persistence, write/read policies, confidence, freshness, provenance, duplicate prevention, and selective retrieval.
+Day 6 adds durable memory and selective retrieval.
 
-Day 7 adds failure taxonomy, retry classification, bounded retries, backoff, fallbacks, circuit-breaker behavior, structured error logs, and partial-success handling.
+Day 7 adds bounded recovery and structured failure handling.
 
-Day 8 adds deterministic permissions, role-based and argument-level policies, scoped human approvals, approval state transitions, and audit logging.
+Day 8 adds permissions, human approval, and auditability.
 
-Day 9 adds structured evaluation datasets, deterministic graders, execution traces, component/trajectory/outcome evaluation, aggregate metrics, failure categorization, and regression testing.
+Day 9 adds structured evaluation, traces, graders, metrics, and regression testing.
+
+Day 10 integrates all previous layers into the Supplier Intelligence Agent capstone, with schemas, tools, state, context, memory, reliability, governance, audit trails, evaluation cases, failure analysis, and final demo.
