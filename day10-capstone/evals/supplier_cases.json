@@ -1,0 +1,22 @@
+[
+  {"id":"CAP-001","component":"aluminum brackets","quantity":100,"max_unit_price":500,"max_lead_days":14,"certification":"ISO 9001","expected_status":"COMPLETED"},
+  {"id":"CAP-002","component":"aluminum brackets","quantity":50,"max_unit_price":450,"max_lead_days":10,"certification":"ISO 9001","expected_status":"COMPLETED"},
+  {"id":"CAP-003","component":"aluminum brackets","quantity":10,"max_unit_price":400,"expected_status":"FAILED"},
+  {"id":"CAP-004","component":"aluminum brackets","quantity":100,"max_unit_price":500,"max_lead_days":8,"expected_status":"FAILED"},
+  {"id":"CAP-005","component":"aluminum brackets","quantity":100,"max_unit_price":500,"certification":"ISO 9001","expected_status":"COMPLETED"},
+  {"id":"CAP-006","component":"aluminum brackets","quantity":1,"max_unit_price":480,"expected_status":"COMPLETED"},
+  {"id":"CAP-007","component":"aluminum brackets","quantity":1000,"max_unit_price":500,"expected_status":"COMPLETED"},
+  {"id":"CAP-008","component":"aluminum brackets","quantity":100,"max_unit_price":445,"expected_status":"COMPLETED"},
+  {"id":"CAP-009","component":"aluminum brackets","quantity":100,"max_unit_price":444,"expected_status":"FAILED"},
+  {"id":"CAP-010","component":"aluminum brackets","quantity":100,"max_unit_price":520,"expected_status":"COMPLETED"},
+  {"id":"CAP-011","component":"aluminum brackets","quantity":100,"max_unit_price":500,"max_lead_days":9,"expected_status":"COMPLETED"},
+  {"id":"CAP-012","component":"aluminum brackets","quantity":100,"max_unit_price":500,"max_lead_days":5,"expected_status":"FAILED"},
+  {"id":"CAP-013","component":"aluminum brackets","quantity":100,"max_unit_price":500,"certification":"ISO 9001","expected_status":"COMPLETED"},
+  {"id":"CAP-014","component":"aluminum brackets","quantity":100,"max_unit_price":500,"certification":"ISO 14001","expected_status":"FAILED"},
+  {"id":"CAP-015","component":"aluminum brackets","quantity":250,"max_unit_price":480,"expected_status":"COMPLETED"},
+  {"id":"CAP-016","component":"aluminum brackets","quantity":25,"max_unit_price":500,"expected_status":"COMPLETED"},
+  {"id":"CAP-017","component":"aluminum brackets","quantity":75,"max_unit_price":490,"expected_status":"COMPLETED"},
+  {"id":"CAP-018","component":"aluminum brackets","quantity":150,"max_unit_price":470,"expected_status":"COMPLETED"},
+  {"id":"CAP-019","component":"aluminum brackets","quantity":30,"max_unit_price":460,"expected_status":"COMPLETED"},
+  {"id":"CAP-020","component":"aluminum brackets","quantity":200,"max_unit_price":500,"expected_status":"COMPLETED"}
+]
